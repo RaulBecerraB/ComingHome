@@ -395,7 +395,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Comming Home")
 
 # Carga la imagen grande
-image = pygame.image.load('fondo5.png')  # Asegúrate de que la imagen tenga 720x3600
+image = pygame.image.load('Escenario1_PIXEL.png')  # Asegúrate de que la imagen tenga 720x3600
 image_rect = image.get_rect()
 
 # Variables para el desplazamiento
