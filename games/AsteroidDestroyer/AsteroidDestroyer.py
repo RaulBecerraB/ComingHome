@@ -22,8 +22,8 @@ background = pygame.image.load("games/AsteroidDestroyer/assets/space.jpg")
 class Asteroid(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.Surface([50, 50])  # Asteroides más grandes
-        self.image.fill(WHITE)
+        self.original_image = pygame.image.load("games/AsteroidDestroyer/assets/meteorite.png").convert_alpha()  # Cargar imagen del asteroide
+        self.image = pygame.transform.scale(self.original_image, (150, 150))  # Redimensionar la imagen del asteroide
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, screen_width - self.rect.width)
         self.rect.y = 100
@@ -32,12 +32,12 @@ class Asteroid(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.y += self.speed_y
-    # Verificar si el asteroide llega al fondo de la pantalla
+        # Verificar si el asteroide llega al fondo de la pantalla
         if self.rect.bottom >= screen_height:
-          self.speed_y = -self.speed_y  # Invertir la dirección para que rebote hacia arriba
-    # Verificar si el asteroide llega al tope de la pantalla después de rebotar
+            self.speed_y = -self.speed_y  # Invertir la dirección para que rebote hacia arriba
+        # Verificar si el asteroide llega al tope de la pantalla después de rebotar
         if self.rect.top <= 0:
-          self.speed_y = -self.speed_y  # Invertir la dirección para que rebote hacia abajo
+            self.speed_y = -self.speed_y  # Invertir la dirección para que rebote hacia abajo
 
            
 # Grupo de sprites
@@ -67,7 +67,7 @@ while running:
             clicked_sprites = [s for s in asteroids if s.rect.collidepoint(pos)]
             for asteroid in clicked_sprites:
                 asteroid.kill()
-                create_asteroid()
+            #    create_asteroid()
 
     all_sprites.update()
     screen.blit(background, (0, 0))  # Dibujar la imagen de fondo
