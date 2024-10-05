@@ -16,13 +16,13 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 
 # Cargar imagen de fondo
-background = pygame.image.load("games/AsteroidDestroyer/assets/space.jpg")
+background = pygame.image.load("games/AsteroidDestroyer/assets/space_PIXELEADO.png")
 
 # Clase para los asteroides
 class Asteroid(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.original_image = pygame.image.load("games/AsteroidDestroyer/assets/Asteroid.png").convert_alpha()  # Cargar imagen del asteroide
+        self.original_image = pygame.image.load("games/AsteroidDestroyer/assets/Asteroide_PIXELEADO.png").convert_alpha()  # Cargar imagen del asteroide
         self.image = pygame.transform.scale(self.original_image, (150, 150))  # Redimensionar la imagen del asteroide
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, screen_width - self.rect.width)
