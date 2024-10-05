@@ -1,6 +1,8 @@
 import pygame
 import sys
 import numpy as np
+import random
+import time
 
 # Initialize Pygame
 pygame.init()
@@ -55,11 +57,7 @@ def available_square(row, col):
     return board[row][col] == 0
 
 def is_board_full():
-    for row in range(BOARD_ROWS):
-        for col in range(BOARD_COLS):
-            if board[row][col] == 0:
-                return False
-    return True
+    return not np.any(board == 0)
 
 def check_win(player):
     # Vertical win check
@@ -88,46 +86,43 @@ def check_win(player):
 
 def draw_vertical_winning_line(col, player):
     posX = col * SQUARE_SIZE + SQUARE_SIZE // 2
-    if player == 1:
-        color = CIRCLE_COLOR
-    elif player == 2:
-        color = CROSS_COLOR
+    color = CIRCLE_COLOR if player == 1 else CROSS_COLOR
     pygame.draw.line(screen, color, (posX, 15), (posX, HEIGHT - 15), LINE_WIDTH)
 
 def draw_horizontal_winning_line(row, player):
     posY = row * SQUARE_SIZE + SQUARE_SIZE // 2
-    if player == 1:
-        color = CIRCLE_COLOR
-    elif player == 2:
-        color = CROSS_COLOR
+    color = CIRCLE_COLOR if player == 1 else CROSS_COLOR
     pygame.draw.line(screen, color, (15, posY), (WIDTH - 15, posY), LINE_WIDTH)
 
 def draw_asc_diagonal(player):
-    if player == 1:
-        color = CIRCLE_COLOR
-    elif player == 2:
-        color = CROSS_COLOR
+    color = CIRCLE_COLOR if player == 1 else CROSS_COLOR
     pygame.draw.line(screen, color, (15, HEIGHT - 15), (WIDTH - 15, 15), LINE_WIDTH)
 
 def draw_desc_diagonal(player):
-    if player == 1:
-        color = CIRCLE_COLOR
-    elif player == 2:
-        color = CROSS_COLOR
+    color = CIRCLE_COLOR if player == 1 else CROSS_COLOR
     pygame.draw.line(screen, color, (15, 15), (WIDTH - 15, HEIGHT - 15), LINE_WIDTH)
 
 def restart():
     screen.fill(BG_COLOR)
     draw_lines()
-    for row in range(BOARD_ROWS):
-        for col in range(BOARD_COLS):
-            board[row][col] = 0
+    board.fill(0)
+
+def bot_move():
+    pygame.time.delay(1000)  # Esperar 1 segundo antes del movimiento del bot
+    # Elige una casilla aleatoria disponible
+    available = np.argwhere(board == 0)
+    if len(available) > 0:
+        choice = random.choice(available)
+        mark_square(choice[0], choice[1], 2)
 
 draw_lines()
 
 # Main loop
 player = 1
 game_over = False
+bot_won = False
+draw_game = False
+winner_time = 0
 
 while True:
     for event in pygame.event.get():
@@ -146,13 +141,44 @@ while True:
                 mark_square(clicked_row, clicked_col, player)
                 if check_win(player):
                     game_over = True
+                    winner_time = time.time()  # Registrar el tiempo del ganador
+                elif is_board_full():
+                    game_over = True
+                    draw_game = True
+                    winner_time = time.time()  # Registrar el tiempo del empate
+
                 player = player % 2 + 1
 
                 draw_figures()
+
+                # Movimiento del bot (jugador 2)
+                if not game_over and player == 2:
+                    bot_move()
+                    if check_win(player):
+                        game_over = True
+                        bot_won = True  # Registrar si el bot ganó
+                        winner_time = time.time()  # Registrar el tiempo del ganador
+                    elif is_board_full():
+                        game_over = True
+                        draw_game = True
+                        winner_time = time.time()  # Registrar el tiempo del empate
+
+                    player = player % 2 + 1
+
+                    draw_figures()
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_r:
                 restart()
                 game_over = False
+                bot_won = False
+                draw_game = False
+
+    # Verificar si ha pasado el tiempo después de que el bot gane o haya empate para reiniciar el juego
+    if (bot_won or draw_game) and (time.time() - winner_time) > 2:
+        restart()
+        game_over = False
+        bot_won = False
+        draw_game = False
 
     pygame.display.update()
