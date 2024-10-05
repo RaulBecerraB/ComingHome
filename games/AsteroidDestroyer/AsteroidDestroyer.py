@@ -15,6 +15,9 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 
+# Cargar imagen de fondo
+background = pygame.image.load("./assets/space.jpg")
+
 # Clase para los asteroides
 class Asteroid(pygame.sprite.Sprite):
     def __init__(self):
@@ -65,7 +68,7 @@ while running:
     if not game_over:
         all_sprites.update()
 
-    screen.fill(BLACK)
+    screen.blit(background, (0, 0))  # Dibujar la imagen de fondo
     all_sprites.draw(screen)
     
     if game_over:
