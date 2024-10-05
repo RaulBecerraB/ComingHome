@@ -16,7 +16,7 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 
 # Cargar imagen de fondo
-background = pygame.image.load("./assets/space.jpg")
+background = pygame.image.load("games/AsteroidDestroyer/assets/space.jpg")
 
 # Clase para los asteroides
 class Asteroid(pygame.sprite.Sprite):
@@ -26,15 +26,20 @@ class Asteroid(pygame.sprite.Sprite):
         self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, screen_width - self.rect.width)
-        self.rect.y = random.randint(-100, -40)
-        self.speed_y = random.randint(1, 3)  # Asteroides más lentos
+        self.rect.y = 100
+        self.speed_y = random.randint(1, 6)  # Asteroides más lentos
+        self.bounced = False
 
     def update(self):
         self.rect.y += self.speed_y
-        if self.rect.top > screen_height:
-            global game_over
-            game_over = True
+    # Verificar si el asteroide llega al fondo de la pantalla
+        if self.rect.bottom >= screen_height:
+          self.speed_y = -self.speed_y  # Invertir la dirección para que rebote hacia arriba
+    # Verificar si el asteroide llega al tope de la pantalla después de rebotar
+        if self.rect.top <= 0:
+          self.speed_y = -self.speed_y  # Invertir la dirección para que rebote hacia abajo
 
+           
 # Grupo de sprites
 all_sprites = pygame.sprite.Group()
 asteroids = pygame.sprite.Group()
@@ -46,35 +51,27 @@ def create_asteroid():
     asteroids.add(asteroid)
 
 # Crear asteroides iniciales
-for i in range(3):  # Menos asteroides
+for i in range(5):  # Menos asteroides
     create_asteroid()
     
 # Bucle principal del juego
 running = True
-game_over = False
 clock = pygame.time.Clock()
 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.MOUSEBUTTONDOWN and not game_over:
+        elif event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
             clicked_sprites = [s for s in asteroids if s.rect.collidepoint(pos)]
             for asteroid in clicked_sprites:
                 asteroid.kill()
-                create_asteroid()  # Crear un nuevo asteroide cuando uno es destruido
+                create_asteroid()
 
-    if not game_over:
-        all_sprites.update()
-
+    all_sprites.update()
     screen.blit(background, (0, 0))  # Dibujar la imagen de fondo
     all_sprites.draw(screen)
-    
-    if game_over:
-        font = pygame.font.Font(None, 74)
-        text = font.render("Game Over", True, RED)
-        screen.blit(text, (screen_width // 2 - text.get_width() // 2, screen_height // 2 - text.get_height() // 2))
     
     pygame.display.flip()
     clock.tick(60)
