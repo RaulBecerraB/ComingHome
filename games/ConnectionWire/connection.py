@@ -86,27 +86,27 @@ while running:
     if dragging and start_pos:
         pygame.draw.line(window, colors[current_cable], start_pos, pygame.mouse.get_pos(), 5)
 
-    # Mostrar mensaje si la conexión es correcta
-    if show_correct_message:
-        text = font.render("¡Conexión correcta!", True, (0, 255, 0))
-        window.blit(text, (WIDTH // 2 - text.get_width() // 2, HEIGHT * 0.05))
+    # # Mostrar mensaje si la conexión es correcta
+    # if show_correct_message:
+    #     text = font.render("¡Conexión correcta!", True, (0, 255, 0))
+    #     window.blit(text, (WIDTH // 2 - text.get_width() // 2, HEIGHT * 0.05))
 
-        # Reducir el tiempo restante para mostrar el mensaje
-        if correct_message_time > 0:
-            correct_message_time -= 1
-        else:
-            show_correct_message = False  # Ocultar el mensaje cuando el tiempo se acabe
+    #     # Reducir el tiempo restante para mostrar el mensaje
+    #     if correct_message_time > 0:
+    #         correct_message_time -= 1
+    #     else:
+    #         show_correct_message = False  # Ocultar el mensaje cuando el tiempo se acabe
 
-    # Mostrar mensaje si la conexión es incorrecta
-    if show_incorrect_message:
-        text = font.render("Conexión incorrecta", True, (255, 0, 0))
-        window.blit(text, (WIDTH // 2 - text.get_width() // 2, HEIGHT * 0.1))
+    # # Mostrar mensaje si la conexión es incorrecta
+    # if show_incorrect_message:
+    #     text = font.render("Conexión incorrecta", True, (255, 0, 0))
+    #     window.blit(text, (WIDTH // 2 - text.get_width() // 2, HEIGHT * 0.1))
 
-        # Reducir el tiempo restante para mostrar el mensaje
-        if incorrect_message_time > 0:
-            incorrect_message_time -= 1
-        else:
-            show_incorrect_message = False  # Ocultar el mensaje cuando el tiempo se acabe
+    #     # Reducir el tiempo restante para mostrar el mensaje
+    #     if incorrect_message_time > 0:
+    #         incorrect_message_time -= 1
+    #     else:
+    #         show_incorrect_message = False  # Ocultar el mensaje cuando el tiempo se acabe
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -131,7 +131,7 @@ while running:
                         if current_cable == i:  # Si el cable coincide
                             print("¡Conexión correcta!")
                             show_correct_message = True
-                            correct_message_time = 120  # Mostrar mensaje por 2 segundos (60 FPS)
+                            correct_message_time = 500  # Mostrar mensaje por 2 segundos (60 FPS)
                             # Guardar la conexión correcta
                             correct_connections.append({
                                 'color': colors[current_cable],
@@ -141,7 +141,7 @@ while running:
                         else:
                             print("Conexión incorrecta.")
                             show_incorrect_message = True
-                            incorrect_message_time = 120  # Mostrar mensaje por 2 segundos (60 FPS)
+                            incorrect_message_time = 500  # Mostrar mensaje por 2 segundos (60 FPS)
                 dragging = False
                 current_cable = None
                 start_pos = None
