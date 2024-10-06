@@ -20,10 +20,10 @@ CROSS_WIDTH = 25
 SPACE = SQUARE_SIZE // 4
 
 # Colors
-BG_COLOR = (28, 170, 156)
-LINE_COLOR = (23, 145, 135)
-CIRCLE_COLOR = (239, 231, 200)
-CROSS_COLOR = (66, 66, 66)
+BG_COLOR = pygame.Color('black')
+LINE_COLOR = pygame.Color('#93CB97')
+CIRCLE_COLOR = pygame.Color('#3CE342')
+CROSS_COLOR = pygame.Color('#1A7E1E')
 
 # Screen
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
