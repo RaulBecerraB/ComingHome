@@ -107,14 +107,6 @@ def restart():
     draw_lines()
     board.fill(0)
 
-def bot_move():
-    pygame.time.delay(1000)  # Esperar 1 segundo antes del movimiento del bot
-    # Elige una casilla aleatoria disponible
-    available = np.argwhere(board == 0)
-    if len(available) > 0:
-        choice = random.choice(available)
-        mark_square(choice[0], choice[1], 2)
-
 draw_lines()
 
 # Main loop
@@ -123,14 +115,20 @@ game_over = False
 bot_won = False
 draw_game = False
 winner_time = 0
+bot_move_time = 0  # Tiempo para el movimiento del bot
+bot_turn_pending = False  # Bandera para indicar si el movimiento del bot está pendiente
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+            
+        if not bot_won and not draw_game and game_over:
+            pygame.quit()
+            sys.exit()
 
-        if event.type == pygame.MOUSEBUTTONDOWN and not game_over:
+        if event.type == pygame.MOUSEBUTTONDOWN and not game_over and player == 1:
             mouseX = event.pos[0]  # x
             mouseY = event.pos[1]  # y
 
@@ -148,24 +146,12 @@ while True:
                     winner_time = time.time()  # Registrar el tiempo del empate
 
                 player = player % 2 + 1
-
                 draw_figures()
 
-                # Movimiento del bot (jugador 2)
+                # Preparar el movimiento del bot
                 if not game_over and player == 2:
-                    bot_move()
-                    if check_win(player):
-                        game_over = True
-                        bot_won = True  # Registrar si el bot ganó
-                        winner_time = time.time()  # Registrar el tiempo del ganador
-                    elif is_board_full():
-                        game_over = True
-                        draw_game = True
-                        winner_time = time.time()  # Registrar el tiempo del empate
-
-                    player = player % 2 + 1
-
-                    draw_figures()
+                    bot_turn_pending = True
+                    bot_move_time = time.time() + 0.5  # Bot hará su movimiento en 1 segundo
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_r:
@@ -173,12 +159,34 @@ while True:
                 game_over = False
                 bot_won = False
                 draw_game = False
+                bot_turn_pending = False
+
+    # Movimiento del bot después del retraso de 1 segundo
+    if bot_turn_pending and time.time() >= bot_move_time:
+        bot_turn_pending = False
+        # Movimiento del bot
+        available = np.argwhere(board == 0)
+        if len(available) > 0:
+            choice = random.choice(available)
+            mark_square(choice[0], choice[1], 2)
+            if check_win(2):
+                game_over = True
+                bot_won = True  # Registrar si el bot ganó
+                winner_time = time.time()  # Registrar el tiempo del ganador
+            elif is_board_full():
+                game_over = True
+                draw_game = True
+                winner_time = time.time()  # Registrar el tiempo del empate
+
+            player = player % 2 + 1
+            draw_figures()
 
     # Verificar si ha pasado el tiempo después de que el bot gane o haya empate para reiniciar el juego
-    if (bot_won or draw_game) and (time.time() - winner_time) > 2:
+    if (bot_won or draw_game) and (time.time() - winner_time) > 1:
         restart()
         game_over = False
         bot_won = False
         draw_game = False
+        bot_turn_pending = False
 
     pygame.display.update()
