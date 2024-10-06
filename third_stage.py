@@ -276,7 +276,7 @@ def third_stage_main():
                 camera_sound = pygame.mixer.Sound('Sounds/camera_flash.mp3')
                 camera_channel = pygame.mixer.Channel(2)  # Asigna el sonido a un canal específico
                 camera_channel.play(camera_sound)
-                pygame.mixer.music.load('Sounds/simon.wav')
+                pygame.mixer.music.load('Sounds/03.mp3')
 
                 # Reproducir la música en bucle (-1 para bucle infinito)
                 pygame.mixer.music.play(loops=-1)
