@@ -8,15 +8,18 @@ class CableConnectionGame:
 
         # Configuración de la ventana
         self.WIDTH, self.HEIGHT = width, height
-        self.window = pygame.display.set_mode((self.WIDTH, self.HEIGHT), pygame.RESIZABLE)
-        pygame.display.set_caption("Juego de Conexión de Cables")
+        self.window = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
+        
+    
+        self.background_image = pygame.image.load('fondo5FRAME.png')  # Cambia la ruta a tu imagen
+        # self.window.blit(self.background_image, (0, 0))
 
         # Colores de los cables
         self.colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (255, 0, 255)]
 
         # Tamaño de los puntos pixelados
         self.PIXEL_SIZE = 40
-        self.LINE_PIXEL_SIZE = 20  # Tamaño de los "píxeles" de la línea de conexión
+        self.LINE_PIXEL_SIZE = 15  # Tamaño de los "píxeles" de la línea de conexión
 
         # Variables para arrastrar cables
         self.dragging = False
@@ -28,11 +31,13 @@ class CableConnectionGame:
 
         # Obtener posiciones iniciales
         self.left_positions, self.right_positions = self.get_positions(self.WIDTH, self.HEIGHT)
+        
+        self.score = 0
 
     # Función para obtener posiciones ajustadas a la ventana
     def get_positions(self, width, height):
-        left_positions = [(int(width * 0.1), int(i * height / 6) + int(height * 0.1)) for i in range(5)]
-        right_positions = [(int(width * 0.9), int(i * height / 6) + int(height * 0.1)) for i in range(5)]
+        left_positions = [(int(width * 0.1)+125, int(i * height / 10) + int(height * 0.1) + 225) for i in range(5)]
+        right_positions = [(int(width * 0.9)-125, int(i * height / 10) + int(height * 0.1) + 225) for i in range(5)]
         random.shuffle(left_positions)  # Desordenar las posiciones de la izquierda
         return left_positions, right_positions
 
@@ -55,8 +60,9 @@ class CableConnectionGame:
     def run(self):
         running = True
         while running:
+            self.window.blit(self.background_image, (0, 0))
             # Cambia el color de fondo
-            self.window.fill((20, 20, 20))  # Fondo oscuro
+            # self.window.fill((20, 20, 20))  # Fondo oscuro
 
             # Dibuja los puntos de conexión usando colores pixelados
             for i, color in enumerate(self.colors):
@@ -86,10 +92,10 @@ class CableConnectionGame:
                 if event.type == pygame.QUIT:
                     running = False
 
-                if event.type == pygame.VIDEORESIZE:
-                    self.WIDTH, self.HEIGHT = event.w, event.h
-                    self.window = pygame.display.set_mode((self.WIDTH, self.HEIGHT), pygame.RESIZABLE)
-                    self.left_positions, self.right_positions = self.get_positions(self.WIDTH, self.HEIGHT)
+                # if event.type == pygame.VIDEORESIZE:
+                #     self.WIDTH, self.HEIGHT = event.w, event.h
+                #     self.window = pygame.display.set_mode((self.WIDTH, self.HEIGHT), pygame.RESIZABLE)
+                #     self.left_positions, self.right_positions = self.get_positions(self.WIDTH, self.HEIGHT)
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     for i, pos in enumerate(self.left_positions):
@@ -105,6 +111,7 @@ class CableConnectionGame:
                                 if self.current_cable == i:  # Si el cable coincide
                                     # print("¡Conexión correcta!")
                                     # Ajusta las posiciones de inicio y fin de las conexiones correctas al centro de los cuadrados
+                                    self.score += 1
                                     self.correct_connections.append({
                                         'color': self.colors[self.current_cable],
                                         'start': (self.start_pos[0] - self.PIXEL_SIZE // 2, self.start_pos[1] - self.PIXEL_SIZE // 2),
@@ -117,6 +124,8 @@ class CableConnectionGame:
                         self.start_pos = None
 
             pygame.display.update()
+            if self.score == 5:
+                return
 
         pygame.quit()
 

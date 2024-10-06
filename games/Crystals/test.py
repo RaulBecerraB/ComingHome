@@ -89,7 +89,7 @@ class HexPuzzleGame:
             self.handle_events()
             self.update_display()
             self.clock.tick(60)
-        pygame.quit()
+        return
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -156,9 +156,9 @@ class HexPuzzleGame:
 
         # Verificar si el juego se ha completado
         if all_pieces_placed and not self.game_completed:
-            text = self.font.render("¡Felicidades!", True, WHITE)
-            text_rect = text.get_rect(center=(360, 360))
-            self.screen.blit(text, text_rect)
+            # text = self.font.render("¡Felicidades!", True, WHITE)
+            # text_rect = text.get_rect(center=(360, 360))
+            # self.screen.blit(text, text_rect)
             self.game_completed = True
             pygame.display.flip()
             pygame.time.delay(2000)
