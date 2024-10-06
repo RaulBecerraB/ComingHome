@@ -1,5 +1,6 @@
 import pygame
 import random
+import os
 
 # Inicializar Pygame
 pygame.init()
@@ -16,13 +17,13 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 
 # Cargar imagen de fondo
-background = pygame.image.load("games/AsteroidDestroyer/assets/space_PIXELEADO.png")
+background = pygame.image.load("games/AsteroidDestroyer/assets/images/space_PIXELEADO.png")
 
 # Clase para los asteroides
 class Asteroid(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.original_image = pygame.image.load("games/AsteroidDestroyer/assets/Asteroide_PIXELEADO.png").convert_alpha()  # Cargar imagen del asteroide
+        self.original_image = pygame.image.load("games/AsteroidDestroyer/assets/images/Asteroide_PIXELEADO.png").convert_alpha()  # Cargar imagen del asteroide
         self.image = pygame.transform.scale(self.original_image, (150, 150))  # Redimensionar la imagen del asteroide
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, screen_width - self.rect.width)
@@ -70,6 +71,13 @@ while running:
             pos = pygame.mouse.get_pos()
             clicked_sprites = [s for s in asteroids if s.rect.collidepoint(pos)]
             for asteroid in clicked_sprites:
+                # Cargar sonidos
+                sound_folder = "games/AsteroidDestroyer/assets/sounds/"
+                sound_files = [os.path.join(sound_folder, f) for f in os.listdir(sound_folder) if f.endswith('.wav')]
+                sounds = [pygame.mixer.Sound(sound_file) for sound_file in sound_files]
+
+                # Reproducir un sonido aleatorio
+                random.choice(sounds).play()
                 asteroid.kill()
             #    create_asteroid()
 
