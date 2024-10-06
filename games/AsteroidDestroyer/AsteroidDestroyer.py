@@ -27,7 +27,7 @@ class Asteroid(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, screen_width - self.rect.width)
         self.rect.y = 100
-        self.speed_y = random.randint(1, 6)  # Asteroides más lentos
+        self.speed_y = random.randint(3, 8)  # Asteroides más lentos
         self.bounced = False
 
     def update(self):
@@ -50,9 +50,13 @@ def create_asteroid():
     all_sprites.add(asteroid)
     asteroids.add(asteroid)
 
-# Crear asteroides iniciales
+# Crear asteroides iniciales con posiciones fijas en x
+fixed_positions_x = [0, 130, 280, 430, 580]  # Posiciones fijas en x para los asteroides
 for i in range(5):  # Menos asteroides
-    create_asteroid()
+    asteroid = Asteroid()
+    asteroid.rect.x = fixed_positions_x[i]
+    all_sprites.add(asteroid)
+    asteroids.add(asteroid)
     
 # Bucle principal del juego
 running = True
