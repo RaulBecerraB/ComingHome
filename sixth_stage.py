@@ -4,6 +4,7 @@ import random
 import time
 import games.Hannoi.hannoi as HannoiModule
 from PIL import Image
+import moviepy.editor
 
 
 def sixth_stage_main():
@@ -169,8 +170,10 @@ def sixth_stage_main():
             # Controlar la velocidad de la animación (FPS)
             clock.tick(60)  # Puedes ajustar la velocidad de la animación aquí
 
-        # Salir de Pygame
-        # second_stage.second_stage_main()
+        
+        video = moviepy.editor.VideoFileClip("Outro_ComingHome.mov")
+        pygame.display.set_caption("Comming Home")
+        video.preview()
         pygame.quit()
         sys.exit()
 
