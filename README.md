@@ -21,3 +21,16 @@ Este juego está dirigido a estudiantes, aficionados a la astronomía y cualquie
 ### Justificación
 
 La creación de **Coming Home** responde a la necesidad de herramientas educativas innovadoras que combinen entretenimiento y aprendizaje. Al utilizar imágenes reales del telescopio James Webb, el juego no solo proporciona una experiencia visual impresionante, sino que también garantiza la precisión científica de la información presentada. Además, la estética retro de 8 bits atrae tanto a jugadores nostálgicos como a nuevas generaciones, haciendo que el aprendizaje sobre el universo sea accesible y atractivo para un público amplio.
+
+
+### Instalación 
+
+- Es necesario tener la versión de Python 3.10 en adelante
+
+- Crear ambiente de desarrollo de python, recomendamos 
+
+- Instalar los requirimientos de proyecto
+
+```bash
+pip install -r requirements.txt
+```
