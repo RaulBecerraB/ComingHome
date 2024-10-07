@@ -2,6 +2,7 @@
 
 ## Game Description
 
+
 **Coming Home** is an 8-bit educational game designed to inspire and educate players about the universe. It uses real photos of celestial bodies taken by the James Webb telescope. Through interactive levels, players will explore planets, stars, and galaxies, learning fascinating facts about the cosmos while enjoying a unique visual experience based on authentic space images.
 
 ### Features
@@ -22,6 +23,11 @@ This game is aimed at students, astronomy enthusiasts, and anyone interested in 
 
 The creation of **Coming Home** addresses the need for innovative educational tools that combine entertainment and learning. By using real images from the James Webb telescope, the game not only provides an impressive visual experience but also ensures the scientific accuracy of the information presented. Additionally, the retro 8-bit aesthetic appeals to both nostalgic players and new generations, making learning about the universe accessible and appealing to a broad audience.
 
+### Project demo
+
+[Join the mision](https://youtu.be/RaHnVR_qRDI)
+
+https://youtu.be/RaHnVR_qRDI
 ### Download the game
 
 You can download, install, and try the game at the following link: [https://drive.google.com/drive/folders/12qd5timCq6CwFbFr6oQyPqh5XuUbz1T9?usp=sharing](https://drive.google.com/drive/folders/12qd5timCq6CwFbFr6oQyPqh5XuUbz1T9?usp=sharing)
