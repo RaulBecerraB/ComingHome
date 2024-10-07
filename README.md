@@ -1,36 +1,40 @@
 # ComingHome
 
-## Descripción del Juego
+## Game Description
 
-**Coming Home** es un juego educativo de 8 bits diseñado para inspirar y educar a los jugadores sobre el universo. Utiliza fotos reales de cuerpos celestes tomadas por el telescopio James Webb. A través de niveles interactivos, los jugadores explorarán planetas, estrellas y galaxias, aprendiendo datos fascinantes sobre el cosmos mientras disfrutan de una experiencia visual única basada en imágenes auténticas del espacio.
+**Coming Home** is an 8-bit educational game designed to inspire and educate players about the universe. It uses real photos of celestial bodies taken by the James Webb telescope. Through interactive levels, players will explore planets, stars, and galaxies, learning fascinating facts about the cosmos while enjoying a unique visual experience based on authentic space images.
 
-### Características
+### Features
 
-- **Educativo**: Aprende sobre el universo con datos precisos y fotos reales.
-- **Inspirador**: Descubre la belleza del cosmos a través de imágenes capturadas por el telescopio James Webb.
-- **Interactivo**: Explora diferentes niveles y desafíos que te llevarán a través de una aventura espacial.
+- **Educational**: Learn about the universe with accurate data and real photos.
+- **Inspiring**: Discover the beauty of the cosmos through images captured by the James Webb telescope.
+- **Interactive**: Explore different levels and challenges that will take you on a space adventure.
 
-### Objetivo
+### Objective
 
-El objetivo del juego es completar misiones espaciales, resolver acertijos y recolectar información sobre diversos cuerpos celestes, todo mientras disfrutas de la estética retro de los gráficos de 8 bits combinada con imágenes reales del espacio.
+The goal of the game is to complete space missions, solve puzzles, and collect information about various celestial bodies, all while enjoying the retro aesthetic of 8-bit graphics combined with real space images.
 
-### Público Objetivo
+### Target Audience
 
-Este juego está dirigido a estudiantes, aficionados a la astronomía y cualquier persona interesada en aprender más sobre el universo de una manera divertida e interactiva.
+This game is aimed at students, astronomy enthusiasts, and anyone interested in learning more about the universe in a fun and interactive way.
 
-### Justificación
+### Justification
 
-La creación de **Coming Home** responde a la necesidad de herramientas educativas innovadoras que combinen entretenimiento y aprendizaje. Al utilizar imágenes reales del telescopio James Webb, el juego no solo proporciona una experiencia visual impresionante, sino que también garantiza la precisión científica de la información presentada. Además, la estética retro de 8 bits atrae tanto a jugadores nostálgicos como a nuevas generaciones, haciendo que el aprendizaje sobre el universo sea accesible y atractivo para un público amplio.
+The creation of **Coming Home** addresses the need for innovative educational tools that combine entertainment and learning. By using real images from the James Webb telescope, the game not only provides an impressive visual experience but also ensures the scientific accuracy of the information presented. Additionally, the retro 8-bit aesthetic appeals to both nostalgic players and new generations, making learning about the universe accessible and appealing to a broad audience.
 
+### Download the game
 
-### Instalación 
+You can download, install, and try the game at the following link: [https://drive.google.com/drive/folders/12qd5timCq6CwFbFr6oQyPqh5XuUbz1T9?usp=sharing](https://drive.google.com/drive/folders/12qd5timCq6CwFbFr6oQyPqh5XuUbz1T9?usp=sharing)
 
-- Es necesario tener la versión de Python 3.10 en adelante
+### Installation of project
 
-- Crear ambiente de desarrollo de python, recomendamos 
+- You need Python version 3.10 or later.
 
-- Instalar los requirimientos de proyecto
+- Create a Python development environment; we recommend [venv](https://docs.python.org/3/library/venv.html).
+
+- Install the project requirements:
 
 ```bash
 pip install -r requirements.txt
 ```
+- Run the `main.py` file and enjoy the journey.
